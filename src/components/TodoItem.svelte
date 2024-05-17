@@ -35,7 +35,7 @@
 <style>
     .task-container {
         display: flex; align-items: center; justify-content: space-between;
-        border-radius: 0.5rem;
+        border-radius: 1rem;
         position: relative;
         margin-bottom: 0.5rem;
         background-color: #6c6c6c;
