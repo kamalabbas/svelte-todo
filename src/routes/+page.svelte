@@ -56,7 +56,7 @@
     border-radius: 1rem;
     width: 100%;
     font-size: 1.2rem;
-    padding: 1.3rem;
+    padding: 1.3rem 4.5rem 1.3rem 1.3rem;
     border: 2px solid #727272;
     background-color: #333333;
     color: #fff;
