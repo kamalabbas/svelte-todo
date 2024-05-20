@@ -24,6 +24,18 @@
     cloneTodo = { ...todo };
     defaultModal = true;
   };
+
+  let DateError: string = "";
+
+  function validateDates() {
+    if (new Date(cloneTodo.startdate!) > new Date(cloneTodo.endDate!)) {
+      DateError = "End date cannot be before the start date";
+    } else {
+      DateError = ""; // Clear the error if dates are valid
+    }
+  }
+
+  
 </script>
 
 <div
@@ -88,14 +100,23 @@
       name="todoDescription"
     ></textarea>
     <div class="flex align-middle gap-4">
-      <input placeholder="Start Date" bind:value={cloneTodo.startdate} class="rounded-xl" type="date" />
-      <input placeholder="End Date" bind:value={cloneTodo.endDate} class="rounded-xl" type="date" />
+      <div>
+        <label for="startdate">Start date</label>
+        <input id="startdate" placeholder="Start Date" bind:value={cloneTodo.startdate} class="rounded-xl block mt-2" type="date" />
+      </div>
+      <div>
+        <label for="endDate">End date</label>
+        <input id="endDate" placeholder="End Date" on:change={validateDates} bind:value={cloneTodo.endDate} class="rounded-xl block mt-2" type="date" />
+      </div>
     </div>
+    {#if DateError != ''}
+      <p class="error">{DateError}</p>
+    {/if}
   </form>
 
-  <svelte:fragment slot="footer">
-    <Button on:click={() => updateTodo(todoListId, cloneTodo)}>Save</Button>
-    <Button on:click={() => (defaultModal = false)}>Close</Button>
+  <svelte:fragment slot="footer">      
+      <Button disabled={DateError} on:click={() => updateTodo(todoListId, cloneTodo)}>Save</Button>
+      <Button on:click={() => (defaultModal = false)}>Close</Button>
   </svelte:fragment>
 </Modal>
 
@@ -138,5 +159,9 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  .error {
+    color: red;
   }
 </style>

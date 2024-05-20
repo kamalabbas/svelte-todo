@@ -18,7 +18,7 @@
     }}
     on:dragover={(e) => e.preventDefault()}
   >
-    <h2 class="title">{todoList.title}</h2>
+    <h2 class="title {todoList.title}">{todoList.title}</h2>
 
     {#each todoList.todos as todo (todo.id)}
       <div animate:flip={{ duration: 500 }}>
@@ -39,8 +39,12 @@
   }
   .title {
     pointer-events: none;
-    background-color: #70af78;
+    /* background-color: #70af78; */
     padding: 1rem;
     border-radius: 0.8rem;
   }
+
+  .title.Todo { background-color: #5a85b3; }
+  .title.Pending { background-color: #e5b55e; }
+  .title.Completed { background-color: #70af78; }
 </style>
