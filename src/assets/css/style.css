@@ -102,4 +102,12 @@ h2 {
     left: 50%;
     transform: translateX(-50%);
     z-index: 99;
-  }
+}
+
+.closeButton {
+	background-color: #595959;
+}
+
+.closeButton:hover {
+	background-color: #514d4d;
+}
