@@ -60,24 +60,17 @@
     <!-- dropdown menu options  -->
     <div>
       <button><DotsVerticalOutline /></button>
-      <Dropdown class="w-28">
+      <Dropdown class="w-32">
         <DropdownItem on:click={handleModalOpen}>Edit</DropdownItem>
-        <DropdownItem class="flex items-center justify-between"
-          >Move to <ChevronRightOutline
-            class="ms-2 dark:text-white"
-          /></DropdownItem
-        >
+        <DropdownItem class="flex items-center justify-between">
+            Move to  <ChevronRightOutline class="ms-2 dark:text-white" /></DropdownItem>
         <Dropdown bind:open={stateDropDown} class="w-32" placement="right-start">
           {#each todoState as state}
-            <DropdownItem
-              on:click={() => {
-                if (todo.state == state) return;
-                stateDropDown = false;
-                setTimeout(() => {
-                  updateTodoState(todoListId, todo.id, state);
-                }, 100);
-              }}>{state}</DropdownItem
-            >
+            {#if state != todo.state}
+                <DropdownItem on:click={() => { stateDropDown = false; setTimeout(() => { updateTodoState(todoListId, todo.id, state); }, 100);}}>
+                    {state}
+                </DropdownItem>
+            {/if}
           {/each}
         </Dropdown>
       </Dropdown>
@@ -88,8 +81,8 @@
 <!-- Edit popup form -->
 <Modal bind:open={defaultModal} outsideclose>
   <form class="flex flex-col gap-4 todo-edit-form">
-    <input class="rounded-xl" bind:value={cloneTodo.title} type="text" />
-    <textarea
+    <input placeholder="Todo title" class="rounded-xl" bind:value={cloneTodo.title} type="text" />
+    <textarea placeholder="Todo Description"
       bind:value={cloneTodo.description}
       class="rounded-xl"
       name="todoDescription"
