@@ -88,8 +88,8 @@
       name="todoDescription"
     ></textarea>
     <div class="flex align-middle gap-4">
-      <input bind:value={cloneTodo.startdate} class="rounded-xl" type="date" />
-      <input bind:value={cloneTodo.endDate} class="rounded-xl" type="date" />
+      <input placeholder="Start Date" bind:value={cloneTodo.startdate} class="rounded-xl" type="date" />
+      <input placeholder="End Date" bind:value={cloneTodo.endDate} class="rounded-xl" type="date" />
     </div>
   </form>
 
