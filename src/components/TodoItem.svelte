@@ -4,9 +4,11 @@
   import { send, receive } from "../transitions/crossFade";
   import { TodoState } from "../entities/enums/todoStatesEnum";
   import { Button, Dropdown, DropdownItem } from "flowbite-svelte";
-  import { DotsVerticalOutline, ChevronRightOutline, } from "flowbite-svelte-icons";
+  import { DotsVerticalOutline, ChevronRightOutline, CheckCircleSolid } from "flowbite-svelte-icons";
   import { Modal } from "flowbite-svelte";
   import { dragStart } from "../services/dragAndDrop";
+  import { Toast } from 'flowbite-svelte';
+  import { slide } from 'svelte/transition';
 
   export let todo: Todo;
   export let todoListId: number;
@@ -35,11 +37,22 @@
     }
   }
 
-  
+  let showNotification = false;
+  let counter = 2;
+
+  function trigger() {
+    showNotification = true;
+    counter = 2;
+    timeout();
+  }
+
+  function timeout() {
+    if (--counter > 0) return setTimeout(timeout, 1000);
+    showNotification = false;
+  }
 </script>
 
-<div
-  class="task-container"
+<div class="task-container"
   role="listitem"
   draggable={true}
   on:dragstart={(event) => dragStart(event, todoListId, todo.id)}
@@ -115,10 +128,18 @@
   </form>
 
   <svelte:fragment slot="footer">      
-      <Button disabled={DateError} on:click={() => updateTodo(todoListId, cloneTodo)}>Save</Button>
-      <Button on:click={() => (defaultModal = false)}>Close</Button>
+      <Button disabled={DateError} on:click={() => {updateTodo(todoListId, cloneTodo); trigger()}}>Save</Button>
+      <Button class="closeButton" on:click={() => (defaultModal = false)}>Close</Button>
   </svelte:fragment>
 </Modal>
+
+<Toast class="notification" dismissable={false} transition={slide} bind:open={showNotification} color="green">
+  <svelte:fragment slot="icon">
+    <CheckCircleSolid class="w-5 h-5" />
+    <span class="sr-only">Check icon</span>
+  </svelte:fragment>
+  saved successfully.
+</Toast>
 
 <style>
   .task-container {
@@ -161,7 +182,8 @@
     gap: 0.5rem;
   }
 
-  .error {
+  .error, .closeButton button {
     color: red;
   }
+
 </style>
