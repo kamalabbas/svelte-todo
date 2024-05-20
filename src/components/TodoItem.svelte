@@ -81,8 +81,8 @@
 <!-- Edit popup form -->
 <Modal bind:open={defaultModal} outsideclose>
   <form class="flex flex-col gap-4 todo-edit-form">
-    <input placeholder="Todo title" class="rounded-xl" bind:value={cloneTodo.title} type="text" />
-    <textarea placeholder="Todo Description"
+    <input placeholder="Title" class="rounded-xl" bind:value={cloneTodo.title} type="text" />
+    <textarea placeholder="Description"
       bind:value={cloneTodo.description}
       class="rounded-xl"
       name="todoDescription"
