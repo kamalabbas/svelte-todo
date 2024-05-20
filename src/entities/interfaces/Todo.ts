@@ -2,6 +2,9 @@ import type { TodoState } from "../enums/todoStatesEnum";
 
 export interface Todo {
   id: number;
-  description: string;
+  title: string;
+  description?: string;
   state: TodoState;
+  startdate?: Date;
+  endDate?: Date 
 }

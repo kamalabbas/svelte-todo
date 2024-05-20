@@ -1,20 +1,18 @@
 <script lang="ts">
   import TodoItem from "./TodoItem.svelte";
   import { flip } from "svelte/animate";
-  import { dragStart, drop } from "../services/dragAndDrop";
-  import { scale } from "svelte/transition";
+  import { drop } from "../services/dragAndDrop";
 
   export let todoLists;
   let hoveringOverBasket: string | null;
 </script>
 
 {#each todoLists as todoList (todoList.id)}
-  <div
-    class="border list-container"
-    role="listitem"
-    on:dragenter={(e) => {(hoveringOverBasket = todoList.title)}}
-    on:dragleave={() => (hoveringOverBasket = null)}
-    on:drop={(event) => {
+  <div class="border list-container"
+      role="listitem"
+      on:dragenter={(e) => {(hoveringOverBasket = todoList.title)}}
+      on:dragleave={() => (hoveringOverBasket = null)}
+      on:drop={(event) => {
       drop(event, todoList.title);
       hoveringOverBasket = null
     }}
@@ -23,12 +21,7 @@
     <h2 class="title">{todoList.title}</h2>
 
     {#each todoList.todos as todo (todo.id)}
-      <div
-        role="listitem"
-        draggable={true}
-        on:dragstart={(event) => dragStart(event, todoList.id, todo.id)}
-        animate:flip={{ duration: 500 }}
-      >
+      <div animate:flip={{ duration: 500 }}>
         <TodoItem {todo} todoListId={todoList.id} />
       </div>
     {/each}
@@ -49,8 +42,5 @@
     background-color: #70af78;
     padding: 1rem;
     border-radius: 0.8rem;
-  }
-  .ss {
-    z-index: -1;
   }
 </style>

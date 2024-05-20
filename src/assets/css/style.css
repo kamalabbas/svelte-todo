@@ -7,6 +7,8 @@
 	--color-bg-gray: rgba(0, 0, 0, 0.4);
 	--color-text: #fff;
 	--column-margin-top: 2rem;
+	--color-white: #fff;
+	--color-gray: #6c6c6c 
 	font-family: var(--font-body);
 	color: var(--color-text);
 }

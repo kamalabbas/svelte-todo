@@ -20,13 +20,13 @@ function todoStore() {
 
     return {
         subscribe,
-        addTodo: (todoListId: number, description: string) => {
+        addTodo: (todoListId: number, title:string) => {
             update($todoLists => {
                 const updateTodoLists = $todoLists.map(todolist => {
                     if(todolist.id == todoListId) {
                         const todo: Todo = {
                             id: todoUid++,
-                            description,
+                            title,
                             state: TodoState.TODO
                         };
                         return {...todolist, todos: [...todolist.todos, todo]};
@@ -67,7 +67,28 @@ function todoStore() {
                 return updatedLists;
             });
         },
-        removeTodo: (listId: number, todoId: number) => {            
+        updateTodo: (todoListId: number, updatedTodo: Todo) => {
+            update($todoLists => {
+                const updateTodoLists = $todoLists.map(todolist => {
+                    if(todolist.id === todoListId) {
+                        // Map over the todos array of the selected list
+                        todolist.todos = todolist.todos.map(todo => {
+                            if(todo.id === updatedTodo.id) {
+                                // Merge updated fields into the existing todo
+                                return {
+                                    ...todo,
+                                    ...updatedTodo
+                                };
+                            }
+                            return todo;
+                        })
+                    }
+                    return todolist
+                });
+                return updateTodoLists
+            });
+        },
+        removeTodo: (listId: number, todoId: number) => {
             update($todoLists => {
                 const updatedLists = $todoLists.map(todoList => {
                     if (todoList.id === listId) {
@@ -81,7 +102,7 @@ function todoStore() {
                 return updatedLists;
             });
         }
-      
+
     }
 }
 
