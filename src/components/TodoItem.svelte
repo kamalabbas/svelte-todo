@@ -77,7 +77,7 @@
         <p>Are you sure you want to Delete?</p>
         <div class="actions mt-2">
           <Button class="mr-2" on:click={() => removeTodo(todoListId, todo.id)}>Confirm</Button>
-          <Button on:click={() => (dropdownOpen = false)}>Cancel</Button>
+          <Button class="closeButton" on:click={() => (dropdownOpen = false)}>Cancel</Button>
         </div>
       </Dropdown>
     </div>
